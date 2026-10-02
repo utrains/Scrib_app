@@ -1,0 +1,31 @@
+{% extends "notes/base.html" %}
+{% load static %}
+{% block title %}Your notes &middot; Scrib{% endblock %}
+{% block content %}
+  <div class="page-head">
+    <h1>Your notes</h1>
+    <button
+      class="btn--primary"
+      hx-get="{% url 'note_create' %}"
+      hx-target="#new-note-slot"
+      hx-swap="innerHTML">
+      + New note
+    </button>
+  </div>
+
+  <div class="notes-area">
+    <div id="new-note-slot"></div>
+
+    <div id="note-list">
+      {% for note in notes %}
+        {% include "notes/_note_card.html" with note=note %}
+      {% endfor %}
+    </div>
+
+    <div class="empty-state">
+      <img src="{% static 'images/empty-state.webp' %}" alt="" width="640" height="480">
+      <h2>No notes yet</h2>
+      <p>Click "New note" to make one.</p>
+    </div>
+  </div>
+{% endblock %}
